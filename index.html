@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SHEMS</title>
+  <meta name="description" content="SHEMS - Smart Home Energy Management System">
+
+  <!-- These tags let the site be added to the home screen and open full screen like an app -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SHEMS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+
+  <!-- iPhone launch screens (one image per screen size) -->
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1260x2736.png" media="(device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Splash screen shown when the app opens -->
+  <div id="splash">
+    <img src="icons/logo.svg" alt="">
+    <h1>SHEMS</h1>
+  </div>
+
+  <header>
+    <img src="icons/logo.svg" alt="SHEMS logo">
+    <div class="title">
+      <h1>SHEMS</h1>
+      <p>Smart Home Energy Management System</p>
+    </div>
+    <!-- Side icon that opens the explanation page -->
+    <a class="icon-button" href="how.html" aria-label="How SHEMS works" title="How SHEMS works">?</a>
+  </header>
+
+  <main>
+
+    <!-- Warning: the hardware is not connected yet -->
+    <div class="warning" id="offlineWarning">
+      <strong>⚠️ System offline</strong>
+      <p>The SHEMS hardware is not connected yet. All three loads are off and read 0, and the home is running on grid power.</p>
+      <a href="how.html">How SHEMS works →</a>
+    </div>
+
+    <!-- 1. Power source (the ATS part) -->
+    <section class="card">
+      <h2>Power Source</h2>
+      <div class="sources">
+        <div class="source" id="gridBox">
+          <span class="emoji">🏠</span>
+          <b>Grid</b>
+          <small>Main power</small>
+        </div>
+        <div class="switch-label">ATS<br>⇄</div>
+        <div class="source" id="batteryBox">
+          <span class="emoji">🔋</span>
+          <b>Battery</b>
+          <small>Backup (60 W)</small>
+        </div>
+      </div>
+      <p class="status-text" id="sourceText">Running on grid power.</p>
+    </section>
+
+    <!-- 2. Load management -->
+    <section class="card">
+      <h2>Load Management</h2>
+      <p class="total"><span id="totalPower">0</span> W <small>of 60 W battery capacity</small></p>
+      <div class="bar"><div class="bar-fill" id="loadBar"></div></div>
+      <p class="status-text" id="loadText">Total load is safe.</p>
+    </section>
+
+    <!-- 3. Monitoring + remote control of the three critical loads -->
+    <section class="card">
+      <h2>Critical Loads</h2>
+      <div id="loads"></div>
+    </section>
+
+    <!-- 4. SMS alerts -->
+    <section class="card">
+      <h2>SMS Alerts</h2>
+      <p class="note">SHEMS sends an SMS the moment grid power is lost, even when nobody is home.</p>
+      <ul id="alertList"></ul>
+    </section>
+
+    <button class="reset" id="resetButton">Reset</button>
+
+    <footer>SHEMS project · <span id="footerStatus">System offline</span></footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

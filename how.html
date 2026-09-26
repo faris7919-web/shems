@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How SHEMS Works</title>
+  <meta name="description" content="SHEMS - Smart Home Energy Management System">
+
+  <!-- These tags let the site be added to the home screen and open full screen like an app -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SHEMS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+
+  <!-- iPhone launch screens (one image per screen size) -->
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1260x2736.png" media="(device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <!-- Back to the main screen -->
+    <a class="icon-button" href="index.html" aria-label="Back">←</a>
+    <div class="title">
+      <h1>How SHEMS Works</h1>
+      <p>Smart Home Energy Management System</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="card how">
+      <p>
+        An <b>ATS</b> (Automatic Transfer Switch) is a simple device with one job: when grid power fails, it
+        switches the home to a battery or generator. It does not know how much power anything uses, it
+        cannot be controlled remotely and it sends no alerts.
+      </p>
+      <p>
+        <b>SHEMS</b> uses the same "switch on outage" idea, but only as one small part of a bigger system. The
+        project is the <b>monitoring, control and alert layer</b> built on top of that switch.
+      </p>
+
+      <h3>The system</h3>
+      <div class="diagram">
+        <div class="row">
+          <div class="box">🏠 Grid</div>
+          <div class="box">🔋 Battery</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="box wide">⇄ ATS switch</div>
+        <div class="arrow">↓</div>
+        <div class="box wide main">SHEMS controller<small>measures · controls · alerts</small></div>
+        <div class="arrow">↓</div>
+        <div class="row three">
+          <div class="box">🩺 Load 1<small>Medical</small></div>
+          <div class="box">🧊 Load 2<small>Fridge</small></div>
+          <div class="box">❄️ Load 3<small>A/C</small></div>
+        </div>
+        <p class="side">📱 The app and SMS talk to the SHEMS controller</p>
+      </div>
+
+      <h3>The 4 functions of SHEMS</h3>
+      <ol class="functions">
+        <li><b>Monitoring</b> – measures the current and power of each critical load on its own, in real time (not just on/off).</li>
+        <li><b>Remote control</b> – turn any load on or off from this app or by an SMS command, from anywhere.</li>
+        <li><b>Alerting</b> – sends an instant SMS the moment power is lost, even if you are not home.</li>
+        <li><b>Load management</b> – tracks the total consumption against the battery's 60 W capacity to prevent overload.</li>
+      </ol>
+
+      <h3>ATS vs SHEMS</h3>
+      <table>
+        <tr><th></th><th>ATS</th><th>SHEMS</th></tr>
+        <tr><td>Switches to battery on outage</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Measures current and power</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Remote control (app / SMS)</td><td>❌</td><td>✅</td></tr>
+        <tr><td>SMS alert on power loss</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Prevents battery overload</td><td>❌</td><td>✅</td></tr>
+      </table>
+
+      <h3>The three critical loads</h3>
+      <ul class="plain">
+        <li>🩺 <b>Medical device</b> for a patient at home</li>
+        <li>🧊 <b>Refrigerator</b></li>
+        <li>❄️ <b>Air conditioner</b></li>
+      </ul>
+    </section>
+
+    <a class="back-link" href="index.html">← Back to SHEMS</a>
+  </main>
+
+  <script>
+    // Same service worker as the main page, so this page also opens offline
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
+</body>
+</html>
