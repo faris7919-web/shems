@@ -146,6 +146,35 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
+// ---------- PIN lock ----------
+
+// Only the SHA-256 fingerprint of the PIN is stored here, not the PIN itself
+const PIN_HASH = "aeb5d182368bc8faff9d186b46adca1c5b308dc80926ca96f8cf3dabe611df5c";
+
+async function sha256(text) {
+  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(bytes)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function isUnlocked() {
+  return localStorage.getItem("shems-unlocked") === PIN_HASH;
+}
+
+document.getElementById("lock").hidden = isUnlocked();
+
+document.getElementById("lockForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const input = document.getElementById("pinInput");
+  if ((await sha256(input.value)) === PIN_HASH) {
+    // Remember this phone, so the PIN is only asked once
+    localStorage.setItem("shems-unlocked", PIN_HASH);
+    document.getElementById("lock").hidden = true;
+  } else {
+    document.getElementById("lockError").textContent = "Wrong PIN, try again.";
+    input.value = "";
+  }
+});
+
 // ---------- Start ----------
 
 document.getElementById("resetButton").addEventListener("click", resetAll);

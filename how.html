@@ -104,6 +104,9 @@
   </main>
 
   <script>
+    // Opened without the PIN? Go to the main page, which asks for it
+    if (localStorage.getItem("shems-unlocked") === null) location.replace("index.html");
+
     // Same service worker as the main page, so this page also opens offline
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
   </script>

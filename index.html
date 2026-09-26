@@ -40,6 +40,18 @@
     <h1>SHEMS</h1>
   </div>
 
+  <!-- PIN lock: only the owner can open the app -->
+  <div id="lock" hidden>
+    <img src="icons/logo.svg" alt="">
+    <h2>SHEMS</h2>
+    <p>Enter your PIN to open the app</p>
+    <form id="lockForm">
+      <input id="pinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="PIN">
+      <button type="submit">Unlock</button>
+    </form>
+    <p class="lock-error" id="lockError"></p>
+  </div>
+
   <header>
     <img src="icons/logo.svg" alt="SHEMS logo">
     <div class="title">

@@ -1,6 +1,6 @@
 // Service worker: saves the app files so SHEMS opens even without internet.
 // Change the version number whenever you change the files.
-const CACHE_NAME = "shems-v6";
+const CACHE_NAME = "shems-v7";
 
 const FILES = [
   "./",
